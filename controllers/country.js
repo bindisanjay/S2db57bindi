@@ -22,9 +22,26 @@ exports.country_detail = async function (req, res) {
     }
 };
 // Handle country create on POST.
-exports.country_create_post = function(req, res) {
- res.send('NOT IMPLEMENTED: Costume create POST');
-};
+    exports.country_create_post = async function(req, res) {
+    console.log(req.body)
+    let document = new Country();
+    // We are looking for a body, since POST does not have query parameters.
+    // Even though bodies can be in many different formats, we will be picky
+    // and require that it be a json object
+    // {"costume_type":"goat", "cost":12, "size":"large"}
+    document.country_name = req.body.country_name;
+    document.country_continent = req.body.country_continent;
+    document.country_populationranking = req.body.country_populationranking;
+    try{
+    let result = await document.save();
+    res.send(result);
+    }
+    catch(err){
+    res.status(500);
+    res.send(`{"error": ${err}}`);
+    }
+   };
+ 
 // Handle country delete form on DELETE.
 exports.country_delete = function(req, res) {
  res.send('NOT IMPLEMENTED: country delete DELETE ' + req.params.id);
@@ -49,3 +66,16 @@ exports.country_update_put = async function (req, res) {
     failed`);
     }
 };
+
+// VIEWS
+// Handle a show all view
+exports.country_view_all_Page = async function(req, res) {
+    try{
+    theCountries = await Country.find();
+    res.render('country', { title: 'Country Search Results', results: theCountries });
+    }
+    catch(err){
+    res.status(500);
+    res.send(`{"error": ${err}}`);
+    }
+   };
