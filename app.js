@@ -3,14 +3,11 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
-
+const mongoose = require('mongoose');
 
 const connectionString = process.env.MONGO_CON;
-mongoose = require('mongoose');
-mongoose.connect(connectionString,
-      {useNewUrlParser: true, useUnifiedTopology: true});
-
+console.log(connectionString);
+mongoose.connect(connectionString,{useNewUrlParser: true, useUnifiedTopology: true});
 
 
 var indexRouter = require('./routes/index');
@@ -21,10 +18,7 @@ var selectorRouter = require('./routes/selector');
 var Country = require("./models/country");
 var resourceRouter = require('./routes/resource');
 
-
-
 var app = express();
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -60,9 +54,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
-
-// We can seed the collection if needed on
+// We can seed the collection if needed on 
 async function recreateDB(){
   // Delete everything
   await Country.deleteMany();
@@ -84,14 +76,8 @@ async function recreateDB(){
   if(err) return console.error(err);
   console.log("Third object saved")
   });
- 
  }
- 
  let reseed = true;
  if (reseed) { recreateDB();}
 
-//Get the default connection
-var db = mongoose.connection;
-//Bind connection to error event
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-db.once("open", function(){console.log("Connection to DB succeeded")});
+ module.exports = app;

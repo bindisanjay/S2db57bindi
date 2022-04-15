@@ -11,14 +11,13 @@ var country_controller = require('../controllers/country');
 router.get('/', api_controller.api);
 /// country ROUTES ///
 // POST request for creating a country.
-router.post('/countries', country_controller.country_create_post);
+router.post('/country', country_controller.country_create_post);
 // DELETE request to delete country.
-router.delete('/countries/:id', country_controller.country_delete);
+router.delete('/country/:id', country_controller.country_delete);
 // PUT request to update country.
-router.put('/countries/:id',
-country_controller.country_update_put);
+router.put('/country/:id',country_controller.country_update_put);
 // GET request for one country.
-router.get('/resource/countries/:id', country_controller.country_detail);
+router.get('/country/:id', country_controller.country_detail);
 // GET request for list of all country items.
-router.get('/countries', country_controller.country_list);
+router.get('/country', country_controller.country_list);
 module.exports = router;
