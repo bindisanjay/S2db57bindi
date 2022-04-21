@@ -1,0 +1,45 @@
+extends layout 
+
+block content 
+  h1= title 
+  if (toShow == null) 
+    h2 No instance to update  
+  else
+  - let countryid = toShow._id 
+  - let ccountry_name = toShow.country_name 
+  - let ccountry_continent = toShow.country_continent
+  - let ccountry_populationranking = toShow.country_populationranking
+   
+  div.row(class='mb-2') 
+    div.mr-1 ID is 
+    div #{countryid} 
+  - let actionid = "/resource/country/"+countryid 
+  form(id='ToolForm', action= actionid, method="PUT") 
+    div.form-group 
+        label.countryAttr(for='country_name') country name
+        input#country_name(type='text', name='country_name', value= ccountry_name ) 
+    div.form-group 
+        label.countryAttr(for='country_continent') country continent
+        input#country_continent(type='text', name='country_continent', value= ccountry_continent) 
+    div.form-group 
+        label.countryAttr(for='country_populationranking') Population Ranking 
+        input#country_populationranking(type='number', name='country_populationranking', value= ccountry_populationranking ) 
+    input(type="submit") 
+ 
+  script. 
+    document.forms['ToolForm'].addEventListener('submit', (event) => { 
+      event.preventDefault(); 
+      // TODO do something here to show user that form is being submitted 
+      fetch(event.target.action, { 
+        method: 'PUT', 
+        body: new URLSearchParams(new FormData(event.target)) // event.target is the form 
+      }).then((resp) => { 
+        return resp.json(); // or resp.text() or whatever the server sends 
+      }).then((body) => { 
+        alert("Update succeded") 
+        // TODO handle body 
+      }).catch((error) => { 
+        // TODO handle error 
+        alert("Update failed " + error ) 
+      }); 
+    }); 

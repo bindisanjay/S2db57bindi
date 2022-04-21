@@ -1,0 +1,34 @@
+extends layout 
+ 
+block content 
+  h1= title 
+ 
+  form(id='CostumeForm', action="/resource/country", method="POST") 
+    div.form-group 
+        label.countryAttr(for='country_name') country_name
+        input#country_name(type='text', name='country_name') 
+    div.form-group 
+        label.countryAttr(for='country_continent')  Country Continent
+        input#country_continent(type='text', name='country_continent') 
+    div.form-group 
+        label.countryAttr(for='country_populationranking') Population ranking 
+        input#cost(type='number', name='country_populationranking') 
+    input(type="submit") 
+ 
+  script. 
+    document.forms['CostumeForm'].addEventListener('submit', (event) => { 
+      event.preventDefault(); 
+      // TODO do something here to show user that form is being submitted 
+      fetch(event.target.action, { 
+        method: 'POST', 
+        body: new URLSearchParams(new FormData(event.target)) // event.target is the form 
+      }).then((resp) => { 
+        return resp.text(); // or resp.text() or whatever the server sends 
+      }).then((body) => { 
+        alert("Save succeded") 
+        // TODO handle body 
+      }).catch((error) => { 
+        // TODO handle error 
+        alert("Save failed " + error ) 
+      }); 
+    }); 

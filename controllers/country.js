@@ -32,10 +32,19 @@ exports.country_list = async function(req, res) {
         }
     };
 
-exports.country_delete = function(req,res)
-{
-    res.send('NOT IMPLEMENTED : countries delete '+req.params.id);
-};
+// Handle country delete on DELETE.
+exports.country_delete = async function(req, res) {
+    console.log("delete " + req.params.id)
+    try {
+    result = await Country.findByIdAndDelete( req.params.id)
+    console.log("Removed " + result)
+    res.send(result)
+    } catch (err) {
+    res.status(500)
+    res.send(`{"error": Error deleting ${err}}`);
+    }
+   };
+
 
 // VIEWS
 // Handle a show all view
@@ -51,7 +60,7 @@ exports.country_delete = function(req,res)
 };
 
  
-   exports.country_detail = async function(req,res){
+exports.country_detail = async function(req,res){
     console.log("detail"+req.params.id)
     try{
         result = await Country.findById(req.params.id);
@@ -80,5 +89,53 @@ ${JSON.stringify(req.body)}`)
         res.status(500) 
         res.send(`{"error": ${err}: Update for id ${req.params.id} 
 failed`); 
+    } 
+};
+
+exports.country_view_one_Page = async function(req, res) { 
+    console.log("single view for id "  + req.query.id) 
+    try{ 
+        result = await Country.findById( req.query.id) 
+        res.render('countrydetail',  
+{ title: 'Country Detail', toShow: result }); 
+    } 
+    catch(err){ 
+        res.status(500) 
+        res.send(`{'error': '${err}'}`); 
+    } 
+};
+
+exports.country_create_Page =  function(req, res) { 
+    console.log("create view") 
+    try{ 
+        res.render('countrycreate', { title: 'country Create'}); 
+    } 
+    catch(err){ 
+        res.status(500) 
+        res.send(`{'error': '${err}'}`); 
+    } 
+}; 
+exports.country_update_Page =  async function(req, res) { 
+    console.log("update view for item "+req.query.id) 
+    try{ 
+        let result = await Country.findById(req.query.id) 
+        res.render('countryupdate', { title: 'Country Update', toShow: result }); 
+    } 
+    catch(err){ 
+        res.status(500) 
+        res.send(`{'error': '${err}'}`); 
+    } 
+}; 
+
+exports.country_delete_Page = async function(req, res) { 
+    console.log("Delete view for id "  + req.query.id) 
+    try{ 
+        result = await Country.findById(req.query.id) 
+        res.render('countrydelete', { title: 'Country Delete', toShow: 
+result }); 
+    } 
+    catch(err){ 
+        res.status(500) 
+        res.send(`{'error': '${err}'}`); 
     } 
 }; 

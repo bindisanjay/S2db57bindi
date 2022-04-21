@@ -9,6 +9,16 @@ var country_controller = require('../controllers/country');
 /// API ROUTE ///
 // GET resources base.
 router.get('/', api_controller.api);
+router.get('/detail', country_controller.country_view_one_Page); 
+router.get('/create', country_controller.country_create_Page); 
+router.get('/update', country_controller.country_update_Page);
+router.get('/delete', country_controller.country_delete_Page); 
+
+
+
+
+
+
 /// country ROUTES ///
 // POST request for creating a country.
 router.post('/country', country_controller.country_create_post);

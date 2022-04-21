@@ -1,0 +1,22 @@
+extends layout 
+ 
+block content 
+  h1= title 
+ 
+  - let countryid = toShow._id 
+  - let ccountry_name = toShow.country_name 
+  - let ccountry_continent = toShow.country_continent
+  - let ccountry_populationranking = toShow.country_populationranking
+  div 
+    div.row 
+      div(class='countryAttr mr-3') Country ID is: 
+      div #{countryid} 
+    div.row 
+      div(class='countryAttr mr-3') Country Name is: 
+      div #{ccountry_name} 
+    div.row 
+      div(class='countryAttr mr-3') Country Continent is: 
+      div #{ccountry_continent} 
+    div.row 
+      div(class='countryAttr mr-3') Population Ranking is: 
+      div #{ccountry_populationranking} 

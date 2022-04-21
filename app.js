@@ -5,6 +5,13 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const mongoose = require('mongoose');
 
+
+//Get the default connection
+var db = mongoose.connection;
+//Bind connection to error event
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once("open", function(){console.log("Connection to DB succeeded")});
+
 const connectionString = process.env.MONGO_CON;
 console.log(connectionString);
 mongoose.connect(connectionString,{useNewUrlParser: true, useUnifiedTopology: true});
