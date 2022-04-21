@@ -2,6 +2,9 @@ extends layout
  
 block content 
   h1= title 
+  if (toShow == null) 
+    h2 No instance to update  
+  else
  
   - let countryid = toShow._id 
   - let ccountry_name = toShow.country_name 
@@ -13,10 +16,10 @@ block content
       div #{countryid} 
     div.row 
       div(class='countryAttr mr-3') Country Name is: 
-      div #{ccountry_name} 
+      div(class='countryDAttr') #{ccountry_name} 
     div.row 
       div(class='countryAttr mr-3') Country Continent is: 
-      div #{ccountry_continent} 
+      div(class='countryDAttr') #{ccountry_continent} 
     div.row 
       div(class='countryAttr mr-3') Population Ranking is: 
-      div #{ccountry_populationranking} 
+      div(class='countryDAttr') #{ccountry_populationranking} 
