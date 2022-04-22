@@ -3,7 +3,7 @@ extends layout
 block content
   h1= title
   div(class="container-fluid")
-        div(class="row")
+        div(class="row m-1")
             -
                 var results = [
                     {
@@ -23,12 +23,17 @@ block content
                     }
                 ]
             each i,index in results 
-                div(class="col-sm-2" onclick=`buy(${index})`)  #{i.country_name}  
-                div(class="col-sm-2" onclick=`buy(${index})`)  #{i.country_continent}
-                div(class="col-sm-2" onclick=`buy(${index})`)  #{i.country_populationranking}
+                - let destination = `dispatch(\"/country/update?id=${country._id}\")`
+                div(class="row-sm-2 m-1" onclick=`buy(${index})`)  #{i.country_name}  
+                div(class="row-sm-2 m-1" onclick=`buy(${index})`)  #{i.country_continent}
+                div(class="row-sm-2 m-1" onclick=`buy(${index})`)  #{i.country_populationranking}
+                    button.btn( class="btn-primary ml-1", onclick= destination) Update
 
         script.
             function buy(p)
             {
                 alert(`You have purchased for an item ${p+1}`);
+            }
+            function dispatch(path){
+                window.location.href=path
             }
