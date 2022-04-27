@@ -1,24 +1,12 @@
-extends layout
-
-block content
-  h1= title
-  p Welcome to Sanjay Bindi #{title}
-  p added a new paragraph
-  - var btnType = 'info'
-  - var btnSize = 'sm'
-  button(type='button' class='btn btn-' + btnType + ' btn-' + btnSize onclick='moreClaps()') Click here 
-  br
-  br
-  div(id ="target") Clap for me
-
-  script. 
-    let clap_count= 0;
-    function moreClaps(){
-    clap_count = clap_count+2;
-    document.getElementById("target").innerHTML =  `Value of clap count now is : ${clap_count}`;
-    console.log(clap_count)
-    }
-  br
-  br  
-
-  a(href='http://localhost:5000/country') country Page Link
+extends layout 
+ 
+block content 
+  if (!user) 
+    a(href="/login") Login 
+    br 
+    a(href="/register") Register 
+  if (user) 
+    p You are currently logged in as #{user.username} 
+    a(href="/country") Take me to Countries 
+    br 
+    a(href="/logout") Logout 

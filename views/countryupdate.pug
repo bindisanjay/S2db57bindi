@@ -1,33 +1,33 @@
 extends layout 
-
+ 
 block content 
-  h1= title 
+  h1= title
   if (toShow == null) 
-    h2 No instance to update  
+    h2 No instance to delete 
   else
   - let countryid = toShow._id 
-  - let ccountry_name = toShow.country_name 
-  - let ccountry_continent = toShow.country_continent
-  - let ccountry_populationranking = toShow.country_populationranking
+  - let country_name = toShow.country_name 
+  - let country_continent = toShow.country_continent
+  - let country_populationranking = toShow.country_populationranking
    
   div.row(class='mb-2') 
     div.mr-1 ID is 
     div #{countryid} 
-  - let actionid = "/resource/country/"+countryid 
-  form(id='ToolForm', action= actionid, method="PUT") 
+  - let actionid = "/resource/country/" + countryid 
+  form(id='CostumeForm', action= actionid, method="PUT") 
     div.form-group 
-        label.countryAttr(for='country_name') country name
-        input#country_name(type='text', name='country_name', value= ccountry_name ) 
+        label.countryAttr(for='country_name') country_name  
+        input#country_name(type='text', name='country_name', value= icountry_name) 
     div.form-group 
-        label.countryAttr(for='country_continent') country continent
-        input#country_continent(type='text', name='country_continent', value= ccountry_continent) 
+        label.countryAttr(for='country_continent') country_continent  
+        input#country_continent(type='text', name='country_continent', value= icountry_continent) 
     div.form-group 
-        label.countryAttr(for='country_populationranking') Population Ranking 
-        input#country_populationranking(type='number', name='country_populationranking', value= ccountry_populationranking ) 
+        label.countryAttr(for='country_populationranking') country_populationranking
+        input#country_populationranking(type='number', name='country_populationranking', value= icountry_populationranking) 
     input(type="submit") 
  
   script. 
-    document.forms['ToolForm'].addEventListener('submit', (event) => { 
+    document.forms['CostumeForm'].addEventListener('submit', (event) => { 
       event.preventDefault(); 
       // TODO do something here to show user that form is being submitted 
       fetch(event.target.action, { 
